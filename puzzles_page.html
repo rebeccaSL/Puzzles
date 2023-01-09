@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta charset="utf-8" />
+        <title>Puzzles Page</title>
+        <link href="puzzlesCSS.css" rel="stylesheet" />
+        <link rel="stylesheet" href="mastermindCSS.css" />
+    </head>
+    <body>
+        <div id="navbar" >
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="morse_code_page.html">Morse Code</a></li>
+                <li><a href="puzzles_page.html">Mastermind Game</a></li>
+                <li><a href="ciphers.html">Ciphers</a></li>
+            </ul>
+        </div>
+        <h1>Mastermind Game</h1>
+        
+            <button onclick="makeBoard()">New Game</button>
+            
+            <button onclick="showSolution()">Reveal Solution</button>
+        
+            <br>
+            <br>
+        
+            <p class="tempPattern">Choose 4 colours to help you work out the mystery pattern</p>
+            <p class="instructions">When you enter your choice, a black pin means you've found the correct colour, in the correct location. An orange pin means you've found the correct colour but in the wrong location. The ordering of the answer pins does not relate to the order of the pattern.</p>
+        
+            <div id="boardArea"></div>
+        
+            <script>
+        
+                const board = document.getElementById("boardArea");
+                let choiceArray = ["", "", "", ""];
+        
+                // generate new pattern
+        
+                const tempDisplay = document.querySelector(".tempPattern");
+        
+                let solutionArr = [];
+        
+                for (let i = 0; i < 4; i++) {
+            solutionArr[i] = Math.ceil(Math.random() * 4);
+                if (solutionArr[i] == 1) {
+                    solutionArr[i] = "R";
+                } else if (solutionArr[i] == 2) {
+                    solutionArr[i] = "B";
+                } else if (solutionArr[i] == 3) {
+                    solutionArr[i] = "Y";
+                } else if (solutionArr[i] == 4) {
+                    solutionArr[i] = "G";
+                }
+                }
+        
+                let blackPin = 0;
+                let whitePin = 0;
+        
+                //problem is - these answers aren't yet created and can't be referenced
+                //then when are created, it's in a different loop to the evaluating one
+                const answer1 = document.querySelector(".answer1");
+                const answer2 = document.querySelector(".answer2");
+                const answer3 = document.querySelector(".answer3");
+                const answer4 = document.querySelector(".answer4");
+                
+                let reducedChoiceArr = [];
+                let reducedSolutionArr = [];
+        
+                function showSolution() {
+                        tempDisplay.textContent = solutionArr;
+                    }
+        
+                function makeBoard() {
+                    
+                    document.getElementById("boardArea").innerHTML = "";
+        
+                    for (let i = 0; i < 6; i++) {
+                        let row = document.createElement("div");
+                        row.className = "boardRow";
+                    
+                        for (let j = 0; j < 5; j++) {
+                            let box = document.createElement("div");
+                            box.className = "boardBox";
+        
+                            if (j < 4) {
+                            let choice = document.createElement("div");
+                            choice.className = "choiceDisplay";
+        
+                            let selectArea = document.createElement("div");
+                            selectArea.className = "selectArea";
+        
+                            let redButton = document.createElement("button");
+                            redButton.className = "chooseRed choose";
+                            redButton.onclick = function selectRed() {
+                                choice.style.background = "magenta";
+                                choice.style.color = "magenta";
+                                choiceArray[j] = ["R"];
+                            }
+        
+                            let blueButton = document.createElement("button");
+                            blueButton.className = "chooseBlue choose";
+                            blueButton.onclick = function selectBlue() {
+                                choice.style.background = "teal";
+                                choice.style.color = "teal";
+                                choiceArray[j] = ["B"];
+                            }
+        
+                            let greenButton = document.createElement("button");
+                            greenButton.className = "chooseGreen choose";
+                            greenButton.onclick = function selectGreen() {
+                                choice.style.background = "seagreen";
+                                choice.style.color = "seagreen";
+                                choiceArray[j] = ["G"];
+                            }
+        
+                            let yellowButton = document.createElement("button");
+                            yellowButton.className = "chooseYellow choose";
+                            yellowButton.onclick = function selectYellow() {
+                                choice.style.background = "yellow";
+                                choice.style.color = "yellow";
+                                choiceArray[j] = ["Y"];
+                            }
+        
+                            box.appendChild(choice);
+                            
+                            selectArea.appendChild(redButton);
+                            selectArea.appendChild(blueButton);
+                            selectArea.appendChild(greenButton);
+                            selectArea.appendChild(yellowButton);
+        
+                            box.appendChild(selectArea);
+        
+                            } else if (j == 4) {
+        
+                                box.className = "boardBox doubleBox";
+                                let answer1 = document.createElement("div");
+                                answer1.className = "answer";
+        
+                                let answer2 = document.createElement("div");
+                                answer2.className = "answer";
+        
+                                let answer3 = document.createElement("div");
+                                answer3.className = "answer";
+        
+                                let answer4 = document.createElement("div");
+                                answer4.className = "answer";
+                                                    
+                                box.appendChild(answer1);
+                                box.appendChild(answer2);
+                                box.appendChild(answer3);
+                                box.appendChild(answer4);
+                                        
+                                let submit = document.createElement("button");
+                                submit.className = "submitChoice";
+                                submit.textContent = "Enter Choice";
+                                submit.onclick = function evalChoice() {
+                                    if (choiceArray[0] == "" | choiceArray[1] == "" | choiceArray[2] == "" | choiceArray[3] == "") {
+                                        submit.textContent = "choose 4 colours";
+                                    } else {
+                                    //submit.textContent = choiceArray;
+        
+                                    blackPin = 0;
+                                    reducedChoiceArr = [];
+                                    reducedSolutionArr = [];
+                                    for (let j = 0; j < 4; j++) {
+                                        if (choiceArray[j] == solutionArr[j]) {
+                                        blackPin = blackPin + 1;
+                                        } else { 
+                                        reducedChoiceArr.push(choiceArray[j]);
+                                        reducedSolutionArr.push(solutionArr[j]);
+                                        }
+                                    }
+        
+                                    whitePin = 0;
+                                    let solutionIndex;
+        
+                                    for (let i = 0; i < reducedChoiceArr.length; i++) {
+                                        if (reducedSolutionArr.find(element => element == reducedChoiceArr[i]) != undefined) {
+                                        whitePin = whitePin + 1;
+                                        solutionIndex = reducedSolutionArr.findIndex(element => element == reducedChoiceArr[i]);
+                                        reducedSolutionArr[solutionIndex] = "M";  // M for matched
+                    
+                                        }
+                                    }
+            
+            //feedback.textContent = "no black pins = " + blackPin + "no white = " + whitePin + " reducedChoice = " + reducedChoiceArr + " reducedSolution = " + reducedSolutionArr;
+        
+            if (blackPin == 4) {
+                answer1.style.background = "black";
+                answer2.style.background = "black";
+                answer3.style.background = "black";
+                answer4.style.background = "black";
+                tempDisplay.textContent = "Well Done!";
+                
+            } else if (blackPin == 3) {
+                answer1.style.background = "black";
+                answer2.style.background = "black";
+                answer3.style.background = "black";
+                if (whitePin == 1) {
+                    answer4.style.background = "orange";
+                }
+            } else if (blackPin == 2) {
+                answer1.style.background = "black";
+                answer2.style.background = "black";
+                if (whitePin == 1) {
+                    answer3.style.background = "orange";
+                } else if (whitePin == 2) {
+                    answer3.style.background = "orange";
+                    answer4.style.background = "orange";
+                }
+            } else if (blackPin == 1) {
+                answer1.style.background = "black";
+                if (whitePin == 1) {
+                    answer2.style.background = "orange";
+                } else if (whitePin == 2) {
+                    answer2.style.background = "orange";
+                    answer3.style.background = "orange";
+                } else if (whitePin == 3) {
+                    answer2.style.background = "orange";
+                    answer3.style.background = "orange";
+                    answer4.style.background = "orange";
+                }
+            } else if (blackPin == 0) {
+                if (whitePin == 1) {
+                    answer1.style.background = "orange";
+                } else if (whitePin == 2) {
+                    answer1.style.background = "orange";
+                    answer2.style.background = "orange";
+                } else if (whitePin == 3) {
+                    answer1.style.background = "orange";
+                    answer2.style.background = "orange";
+                    answer3.style.background = "orange";
+                } else if (whitePin == 4) {
+                    answer1.style.background = "orange";
+                    answer2.style.background = "orange";
+                    answer3.style.background = "orange";
+                    answer4.style.background = "orange";
+                }
+            }
+        
+                                    }
+                                }
+                                box.appendChild(submit);
+                            }
+                            row.appendChild(box);
+                        }
+                        board.appendChild(row);
+                }
+            }
+        
+            </script>
+
+    </body>
+</html>

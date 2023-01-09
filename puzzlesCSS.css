@@ -1,0 +1,127 @@
+* {
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    background-color: ;
+}
+/*
+div {
+    border: 4px solid red;
+}
+*/
+
+/*
+p {
+    border: 4px solid blue;
+}
+*/
+a {
+    text-decoration: none;
+    color: teal; //choose a better colour
+}
+
+#navbar {
+    background: teal;
+}
+
+#navbar a {
+    color: white;
+}
+
+#navbar > ul {
+    list-style: none;
+    display: flex;
+    justify-content: space-evenly;
+    margin-left: -10%;
+}
+
+.home_image_div {
+    height: 240px;
+    background-image: url("homepage_puzzles_image.jpg");
+    background-size: cover;
+}
+
+.ciphers_image_div {
+    height: 240px;
+    background-image: url("ciphers_page_bletchley_cipher.jpg");
+    background-size: cover;
+    
+}
+
+.morse_image_div {
+    height: 240px;
+    background-image: url("morse_page_morsecode_booklet_image.jpg");
+    background-size: cover;
+}
+h1 {
+    color: white;
+}
+
+.home_image_div p, .ciphers_image_div p, .morse_image_div p {
+    color: white;
+    margin-top: 160px;
+    text-align: right;
+}
+
+.home_image_div p a, .ciphers_image_div p a, .morse_image_div p a {
+    color: white;
+}
+
+.section_descriptions {
+    width: 60%;
+    margin: auto;
+}
+
+.lower_image {
+    display: block;
+    width: 60%;
+    height: auto;
+    margin: auto;
+ 
+}
+
+.lower_image_text {
+    text-align: center;
+    font-style: italic;
+}
+
+.morse_code_symbols {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    
+}
+
+.morse_code_symbols p {
+    margin-left: 2px;
+}
+
+.symbol, #coded_word {
+    font-size: 48px;
+    margin-top: 8px;
+}
+
+.letter_and_symbol {
+    width: 160px;
+    height: 50px;
+    display: flex;
+    margin: 2px;
+    align-items: center;
+    justify-items: center;
+    border: 4px solid black;
+}
+
+.image_section {
+    text-align: center;
+}
+
+figure {
+    width: 25%;
+    display: inline-flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    //border: 3px solid yellow;
+    margin: auto;
+}
+
+figure img {
+    width: 100%;
+}

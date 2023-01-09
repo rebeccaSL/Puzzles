@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>Morse Code</title>
+        <link href="puzzlesCSS.css" rel="stylesheet" />
+    </head>
+    <body>
+        <div id="navbar" >
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="morse_code_page.html">Morse Code</a></li>
+                <li><a href="puzzles_page.html">Mastermind Game</a></li>
+                <li><a href="ciphers.html">Ciphers</a></li>
+            </ul>
+        </div>
+        
+        <div class="morse_image_div">
+            <h1>Morse Code</h1>
+            <p>Morse Code Booklet Photo by <a href="https://unsplash.com/@chriscurry92?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Chris Curry</a> on <a href="https://unsplash.com/photos/j5s_uLajP2o?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a></p>
+        </div>
+
+        <div class="morse_history">
+            <h3>A Very Brief History of Morse Code</h3>
+            <p>Morse Code is a system of representing letters, numerals and punctuation marks with a combination of dots and dashes.</p>
+            <p>The original system of Morse Code was invented by Samuel F. B. Morse, in the United States, during the 1830s. Its purpose was for electrical telegraphy (the sending of text messages across telephone wires, using humans to send, receive and translate symbols).</p>
+            <p>In 1851 the system was updated into a simpler, more precise form called International Morse Code or Continental Morse Code. This allowed for non-English characters and provided combinations of dots and dashes for all letters (whereas only some letters had codes in the original version).</p>
+        </div>
+
+        <div>
+            <h3>Morse Code</h3>
+            <p>Morse Code was transmitted as sound. Each dot is 1 unit. The dashes are 3 units. Spaces between LETTERS are indicated by a gap of 3 units. Spaces between WORDS are indicated by a gap of 7 units.</p>
+            <div class="morse_code_symbols">
+                <div class="letter_and_symbol"><p>A</p><p class="symbol">. _</p></div>
+                <div class="letter_and_symbol"><p>B</p><p class="symbol">_ . . .</p></div>
+                <div class="letter_and_symbol"><p>C</p><p class="symbol">_ . _ .</p></div>
+                <div class="letter_and_symbol"><p>D</p><p class="symbol">_ . .</p></div>
+                <div class="letter_and_symbol"><p>E</p><p class="symbol">.</p></div>
+                <div class="letter_and_symbol"><p>F</p><p class="symbol">. . _ .</p></div>
+                <div class="letter_and_symbol"><p>G</p><p class="symbol">_ _ .</p></div>
+                <div class="letter_and_symbol"><p>H</p><p class="symbol">. . . .</p></div>
+                <div class="letter_and_symbol"><p>I</p><p class="symbol">. .</p></div>
+                <div class="letter_and_symbol"><p>J</p><p class="symbol">. _ _ _</p></div>
+                <div class="letter_and_symbol"><p>K</p><p class="symbol">_ . _</p></div>
+                <div class="letter_and_symbol"><p>L</p><p class="symbol">. _ . .</p></div>
+                <div class="letter_and_symbol"><p>M</p><p class="symbol">_ _</p></div>
+                <div class="letter_and_symbol"><p>N</p><p class="symbol">_ .</p></div>
+                <div class="letter_and_symbol"><p>O</p><p class="symbol">_ _ _</p></div>
+                <div class="letter_and_symbol"><p>P</p><p class="symbol">. _ _ .</p></div>
+                <div class="letter_and_symbol"><p>Q</p><p class="symbol">_ _ . _</p></div>
+                <div class="letter_and_symbol"><p>R</p><p class="symbol">. _ .</p></div>
+                <div class="letter_and_symbol"><p>S</p><p class="symbol">. . .</p></div>
+                <div class="letter_and_symbol"><p>T</p><p class="symbol">_</p></div>
+                <div class="letter_and_symbol"><p>U</p><p class="symbol">. . _</p></div>
+                <div class="letter_and_symbol"><p>V</p><p class="symbol">. . . _</p></div>
+                <div class="letter_and_symbol"><p>W</p><p class="symbol">. _ _</p></div>
+                <div class="letter_and_symbol"><p>X</p><p class="symbol">_ . . _</p></div>
+                <div class="letter_and_symbol"><p>Y</p><p class="symbol">_ . _ _</p></div>
+                <div class="letter_and_symbol"><p>Z</p><p class="symbol">_ _ . .</p></div>
+            </div>
+        </div>
+
+        <div>
+            <h3>Time to try out Morse Code:</h3>
+            <form action="" method="post">
+                <fieldset>
+                    <div>
+                        <label for="word_toCode">Enter a word to be translated into Morse Code: </label>
+                        <input type="text" id="word_toCode">
+                    </div>
+                    <div>
+                        <label for="code_name">What is your code name?</label>
+                        <input type="text" id="code_name">
+                    </div>
+                    <div>
+                        <legend>Are you a spy?</legend>
+                        <label><input type="checkbox" id="spy_yes">Yes</label>
+                    </div>
+                    <div>
+                        <button type="button" onclick="code_word()">Code It!</button>
+                    </div>
+                    </fieldset>
+            </form>
+
+            <div>
+                <h3>Your Coded Word</h3>
+                <p>Original Word</p><p id="original_word">Original</p>
+                <p>Coded Word (separated by "/" for clarity, though this is not part of Morse Code)</p><p id="coded_word"></p>
+            </div>
+        </div>
+
+        <script>
+            const word = document.getElementById("word_toCode");
+            const original = document.getElementById("original_word");
+            const coded = document.getElementById("coded_word")
+
+            let testArray = [["A", "."], ["B", 2], ["C", 3]];
+            let morseArray = [["A" , ". _<"], ["B" , "_ . . ."], 
+                                ["C" , "_ . _ ."], 
+                                ["D" , "_ . ."], 
+                                ["E" , "."], 
+                                ["F" , ". . _ ."], 
+                                ["G" , "_ _ ."], 
+                                ["H" , ". . . ."], 
+                                ["I" , ". ."], 
+                                ["J" , ". _ _ _"], 
+                                ["K" , "_ . _"], 
+                                ["L" , ". _ . ."],     
+                                ["M" , "_ _"], 
+                                ["N" , "_ ."], 
+                                ["O" , "_ _ _"], 
+                                ["P" , ". _ _ ."], 
+                                ["Q" , "_ _ . _"], 
+                                ["R" , ". _ ."], 
+                                ["S" , ". . ."], 
+                                ["T" , "_"], 
+                                ["U" , ". . _"], 
+                                ["V" , ". . . _"], 
+                                ["W" , ". _ _"], 
+                                ["X" , "_ . . _"], 
+                                ["Y" , "_ . _ _"], 
+                                ["Z" , "_ _ . ."]];
+
+            function code_word() {
+                let capitalised = word.value.toUpperCase();
+                original.textContent = capitalised;
+
+                // remove non-letters
+                let wordArray = capitalised.slice();
+                
+                let letterRegex = /[A-Z]/;
+                let tidyArray = [];
+
+                for (let i = 0; i < wordArray.length; i++) {
+                    if (wordArray[i].match(letterRegex)) {
+                        tidyArray.push(wordArray[i]);
+                    }
+                }
+
+                // translate the letters
+                let codedArray = [];
+
+                for (let i = 0; i < tidyArray.length; i++){
+                    let key = tidyArray[i];
+                    for (let j = 0; j < morseArray.length; j++) {
+                        let morseTest = morseArray[j][0];
+                        if (morseTest == key) {
+                            codedArray.push(morseArray[j][1]);
+                        }
+                    }
+                }
+
+                // join coded array with spaces
+
+                let codedWord = codedArray.join(" / ");
+
+                coded.textContent = codedWord;
+            }
+
+        </script>
+        
+        <div>
+            <h3>Decoding Morse Code</h3>
+
+            <button type="button" onclick="makeWord()">Click here to try DECODING</button>
+            
+            <p>Translate this word back to English (letters separated by "/"): </p><p id="word_toTranslate"></p>
+            
+            <p>And click the button below when you think you've got it!</p>
+            
+            <button type="button" onclick="check()">Am I Right?</button>
+            
+            <p id="rightORWrong"></p>
+        </div>
+
+        <script>
+            let wordList = ["which", "there", "their",
+                            "about",
+                            "would",
+                            "these",
+                            "other",
+                            "words",
+                            "could",
+                            "write",
+                            "first",
+                            "water",
+                            "after",
+                            "where",
+                            "right",
+                            "think",
+                            "three",
+                            "years",
+                            "place",
+                            "sound",
+                            "great",
+                            "again",
+                            "still",
+                            "every",
+                            "small",
+                            "found",
+                            "those",
+                            "never",
+                            "under",
+                            "might",
+                            "while",
+                            "house",
+                            "world",
+                            "below",
+                            "asked",
+                            "going",
+                            "large",
+                            "until",
+                            "along",
+                            "shall",
+                            "being",
+                            "often",
+                            "earth",
+                            "began",
+                            "since",
+                            "study",
+                            "night",
+                            "light",
+                            "above",
+                            "paper",
+                            "parts",
+                            "young",
+                            "story",
+                            "point",
+                            "given",
+                            "means",
+                            "music",
+                            "miles",
+                            "money",
+                            "lines",
+                            "early",
+                            "trees",
+                            "short",
+                            "state",
+                            "front",
+                            "makes",
+                            "comes",
+                            "close",
+                            "power",
+                            "lived",
+                            "vowel",
+                            "taken",
+                            "built",
+                            "heart",
+                            "ready",
+                            "quite",
+                            "round",
+                            "horse",
+                            "shows",
+                            "river",
+                            "field",
+                            "leave",
+                            "third",
+                            "hours",
+                            "names",
+                            "heavy",
+                            "ideas",
+                            "check",
+                            "floor",
+                            "begin",
+                            "alone",
+                            "plane",
+                            "spell",
+                            "watch",
+                            "carry",
+                            "wrote",
+                            "clear",
+                            "named",
+                            "books",
+                            "glass",
+                            "human",
+                            "takes",
+                            "party",
+                            "build",
+                            "sides",
+                            "seven"];
+
+            let secretWord = "";
+            let display = document.getElementById("word_toTranslate");
+            let answerDisplay = document.getElementById("rightORWrong");
+
+            function makeWord() {
+
+                answerDisplay.style.color = "white";
+
+                // select a random word from the wordlist
+                let max = wordList.length;
+                let randNum = Math.floor(Math.random() * max);
+                secretWord = wordList[randNum];
+
+                //capitalise it - would be better if capitalised to start with?!
+                let secretCapital = secretWord.toUpperCase(0);
+
+                // and send to array
+                let secretArray = secretCapital.slice();
+
+                // translate the letters
+                let codedSecret = [];
+
+                for (let i = 0; i < secretCapital.length; i++){
+                    let key = secretCapital[i];
+                    for (let j = 0; j < morseArray.length; j++) {
+                        let morseTest = morseArray[j][0];
+                        if (morseTest == key) {
+                            codedSecret.push(morseArray[j][1]);
+                        }
+                    }
+                }
+
+                // join coded array with spaces
+
+                let codedSecretWord = codedSecret.join(" / ");
+
+                display.textContent = codedSecretWord;
+
+                answerDisplay.textContent = secretCapital;
+            }
+            
+
+            function check() {
+                answerDisplay.style.color = "red";
+            }
+        </script>
+    </body>
+</html>
